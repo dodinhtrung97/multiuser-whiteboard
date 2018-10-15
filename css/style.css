@@ -84,6 +84,7 @@ label[for=color02] {background: gold;}
 label[for=color03] {background: navy;}
 label[for=color04] {background: yellowgreen;}
 label[for=color05] {background: firebrick;}
+label[for=color06] {background: white;}
 
 .anim {
 	transform: scale(1.5);
