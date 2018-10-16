@@ -15,6 +15,17 @@
 	document.getElementById('colorSwatch').addEventListener('click', function() {
 		color = document.querySelector(':checked').getAttribute('data-color');
 	}, false);
+
+	/* Hook is--visible to toolbar selection */
+	$(document).ready(function() {
+		$('#tool-bar-colors').live('click', function() {
+			if ($('#hidden-toolbar-color').hasClass('is--visible')) {
+				$('#hidden-toolbar-color').removeClass('is--visible');
+			} else {
+				$('#hidden-toolbar-color').addClass('is--visible');
+			}
+		});
+	})
 	
 	var isTouchSupported = 'ontouchstart' in window;
 	var isPointerSupported = navigator.pointerEnabled;
