@@ -1,11 +1,24 @@
 (function() {
-	/* Cannas */
+	/* Canvas setup */
 	var canvas = document.getElementById('drawCanvas');
 	var ctx = canvas.getContext('2d');
 	var color = document.querySelector(':checked').getAttribute('data-color');
 
 	canvas.width = Math.min(document.documentElement.clientWidth, window.innerWidth || 300);
 	canvas.height = Math.min(document.documentElement.clientHeight, window.innerHeight || 300);
+
+	var isTouchSupported = 'ontouchstart' in window;
+	var isPointerSupported = navigator.pointerEnabled;
+	var isMSPointerSupported =  navigator.msPointerEnabled;
+	
+	var downEvent = isTouchSupported ? 'touchstart' : (isPointerSupported ? 'pointerdown' : (isMSPointerSupported ? 'MSPointerDown' : 'mousedown'));
+	var moveEvent = isTouchSupported ? 'touchmove' : (isPointerSupported ? 'pointermove' : (isMSPointerSupported ? 'MSPointerMove' : 'mousemove'));
+	var upEvent = isTouchSupported ? 'touchend' : (isPointerSupported ? 'pointerup' : (isMSPointerSupported ? 'MSPointerUp' : 'mouseup'));
+	
+	/* Listener for key event */
+	canvas.addEventListener(downEvent, startDraw, false);
+	canvas.addEventListener(moveEvent, draw, false);
+	canvas.addEventListener(upEvent, endDraw, false);
 	 
 	ctx.strokeStyle = color;
 	ctx.lineCap = ctx.lineJoin = 'round';
@@ -55,18 +68,6 @@
 		});
 	})
 
-	var isTouchSupported = 'ontouchstart' in window;
-	var isPointerSupported = navigator.pointerEnabled;
-	var isMSPointerSupported =  navigator.msPointerEnabled;
-	
-	var downEvent = isTouchSupported ? 'touchstart' : (isPointerSupported ? 'pointerdown' : (isMSPointerSupported ? 'MSPointerDown' : 'mousedown'));
-	var moveEvent = isTouchSupported ? 'touchmove' : (isPointerSupported ? 'pointermove' : (isMSPointerSupported ? 'MSPointerMove' : 'mousemove'));
-	var upEvent = isTouchSupported ? 'touchend' : (isPointerSupported ? 'pointerup' : (isMSPointerSupported ? 'MSPointerUp' : 'mouseup'));
-	 	  
-	canvas.addEventListener(downEvent, startDraw, false);
-	canvas.addEventListener(moveEvent, draw, false);
-	canvas.addEventListener(upEvent, endDraw, false);
-
 	function changeColor(newColor) {
 		color = newColor;
 	}
@@ -84,6 +85,7 @@
 	    ctx.stroke();
     }
 
+    /* Draw object from stream to peer's canvas */
     function drawFromStream(message) {
 		if(!message || message.plots.length < 1) return;
 		drawOnCanvas(message.penSize, message.color, message.plots);
@@ -93,6 +95,7 @@
     var isActive = false;
     var plots = [];
 
+    /* Draw object on host canvas */
 	function draw(e) {
 		e.preventDefault(); // prevent continuous touch event process e.g. scrolling
 	  	if(!isActive) return;
@@ -105,11 +108,13 @@
     	drawOnCanvas(ctx.lineWidth, color, plots);
 	}
 	
+	/* Trigger start draw action on key down */
 	function startDraw(e) {
 	  	e.preventDefault();
 	  	isActive = true;
 	}
 	
+	/* Trigger end draw action on key up */
 	function endDraw(e) {
 	  	e.preventDefault();
 	  	isActive = false;
