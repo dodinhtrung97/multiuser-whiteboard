@@ -60,17 +60,6 @@ input[type=radio]:checked + label::after {
 	left: 8px;
 }
 
-/*label {
-	display: inline-block; 
-	width: 48px; height: 48px; 
-	position: relative;
-	padding-right: 5px;
-	border-radius: 50%;
-	text-shadow: 1px 1px 2px #000;
-	color: #fff;
-	font-size: 32px;
-	line-height: 46px;
-}*/
 label {
 	display: inline-block; 
 	width: 20px; height: 20px; 
@@ -224,6 +213,7 @@ header div {
 }
 .tools-menu--colors {
 	margin: 0 -2px !important;
+	padding: 0 10px;
 }
 .tool-items--buton.predefined-color {
 	width: 22px;
@@ -233,11 +223,13 @@ header div {
 .tool-items--button:hover {
 	background-color: #d6d6d6;
 }
-
+.extended {
+	margin-left: 5px;
+}
 .toolbox {
 	display: none;
 	position: absolute;
-	top: -12px;
+	top: -15px;
 	left: 54px;
 	border-radius: 24px;
 	background-color: #f0f0f0;
@@ -267,6 +259,41 @@ header div {
 }
 .fadeInLeft {
 	animation: fadeInLeft .350s ease-in-out;
+}
+
+/* Slider */
+.slidecontainer {
+    width: 100%; /* Width of the outside container */
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 15px;
+    border-radius: 5px;   
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%; 
+    background: #232323;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #232323;
+    cursor: pointer;
 }
 
 ul {

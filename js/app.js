@@ -8,13 +8,44 @@
 	canvas.height = Math.min(document.documentElement.clientHeight, window.innerHeight || 300);
 	 
 	ctx.strokeStyle = color;
-	ctx.lineWidth = '3';
 	ctx.lineCap = ctx.lineJoin = 'round';
+
+	ctx.lineWidth = '3';
+	/* Change pen-size based on slider */
+	var slider = document.getElementById('pen-size');
+	slider.oninput = function() {
+		ctx.lineWidth = this.value;
+	}
+
+	/* PubNub data stream */
+	var channel = 'whiteboard-demo';
+	var pubnub = PUBNUB.init({
+	    publish_key: 'pub-c-4660625f-ec36-4097-b692-529aaacdc6db',
+	    subscribe_key: 'sub-c-74c94b26-d0fe-11e8-8f2a-6ea01b4be699',
+	    ssl: true
+	});
+	pubnub.subscribe({
+	    channel: channel,
+	    callback: drawFromStream
+	});
+	function publish(data) {
+		pubnub.publish({
+			channel: channel,
+			message: data
+		});
+	}
 
 	/* Mouse and touch events */
 	document.getElementById('colorSwatch').addEventListener('click', function() {
 		color = document.querySelector(':checked').getAttribute('data-color');
 	}, false);
+
+	/* Eraser */
+	$(document).ready(function() {
+		$('#tool-bar-eraser').live('click', function() {
+			color = 'white';
+		});
+	})
 
 	/* Clear canvas */
 	$(document).ready(function() {
@@ -54,6 +85,7 @@
 
     function drawFromStream(message) {
 		if(!message || message.plots.length < 1) return;
+		ctx.beginPath();
 		drawOnCanvas(message.color, message.plots);
     }
 
@@ -80,7 +112,14 @@
 	function endDraw(e) {
 	  	e.preventDefault();
 	  	isActive = false;
-	 
+
+		pubnub.publish({
+		    channel: channel,
+		    message: { 
+		        plots: plots // your array goes here
+		    } 
+		});
+
 	  	plots = [];
 	}
 })();
