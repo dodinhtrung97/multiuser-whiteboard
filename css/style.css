@@ -8,16 +8,7 @@ body {
     margin: 1em;
     color: #fff;
     background: url(../images/grid-pattern.png) left top repeat, 
-    			-webkit-radial-gradient(50% 15%, #2c98dd, #1a5f96) no-repeat;
-    background: url(../images/grid-pattern.png) left top repeat, 
-    			-moz-radial-gradient(50% 15%, #2c98dd, #1a5f96) no-repeat;
-    background: url(../images/grid-pattern.png) left top repeat, 
-    			-ms-radial-gradient(50% 15%, #2c98dd, #1a5f96) no-repeat;
-    background: url(../images/grid-pattern.png) left top repeat, 
-    			-o-radial-gradient(50% 15%, #2c98dd, #1a5f96) no-repeat;
-    background: url(../images/grid-pattern.png) left top repeat, 
-    			radial-gradient(circle farthest-side at 50% 15%, #2c98dd, #1a5f96) no-repeat;
-    background-color: #1a5f96;
+    			-webkit-radial-gradient(0% 0%, #ffffff, #ffffff) no-repeat;
 }
 header {
 	margin-bottom: 1em;
@@ -84,7 +75,7 @@ label[for=color02] {background: gold;}
 label[for=color03] {background: navy;}
 label[for=color04] {background: yellowgreen;}
 label[for=color05] {background: firebrick;}
-label[for=color06] {background: white;}
+label[for=color06] {outline-color: white;}
 
 .anim {
 	transform: scale(1.5);
@@ -169,7 +160,64 @@ header div {
   		font-size: 40px;
 	  	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 	}
-	.github {
-		display: block;
-	}
 }	
+
+.toolbar {
+	background-color: #f0f0f0;
+	border: 1px solid #dddddd; 
+	border-radius: 8px;
+	height: 48px;
+}
+.toolbar-box--middle-left {
+	position: absolute;
+	z-index: 10;
+	left: 12px;
+	top: 76px;
+}
+.toolbar--vertical {
+	width: 56px;
+	height: auto;
+}
+.tools_menu {
+	padding: 7px;
+	position: relative;
+	width: 100%;
+}
+.tool-items {
+	margin-top: 12px;
+	margin-left: -34px;
+	position: relative;
+	border-radius: 8px;
+	padding-bottom: 10px;
+}
+.tool-items--button {
+	width: 42px;
+	height: 42px;
+	border-radius: 8px;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+}
+.tool-items--button img {
+	display: inline-block;
+	padding: 5px;
+	max-width: 35px;
+	min-width: 35px;
+	max-height: 35px;
+	min-height: 35px;
+}
+.tool-items--button:hover {
+	background-color: #d6d6d6;
+}
+
+ul {
+	list-style-type: none;
+	margin: 0;
+}
+li {
+	display: list-item;
+	text-align: match-parent;
+}
+
