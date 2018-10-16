@@ -43,6 +43,7 @@ a {
   pointer;
 }
 #colorSwatch {
+	visibility: hidden;
 	position: absolute;
 	bottom: 20px;
 	right: 20px;
@@ -59,7 +60,7 @@ input[type=radio]:checked + label::after {
 	left: 8px;
 }
 
-label {
+/*label {
 	display: inline-block; 
 	width: 48px; height: 48px; 
 	position: relative;
@@ -69,6 +70,12 @@ label {
 	color: #fff;
 	font-size: 32px;
 	line-height: 46px;
+}*/
+label {
+	display: inline-block; 
+	width: 20px; height: 20px; 
+	position: relative;
+	border-radius: 50%;
 }
 label[for=color01] {background: black;}
 label[for=color02] {background: gold;}
@@ -208,8 +215,17 @@ header div {
 	max-height: 35px;
 	min-height: 35px;
 }
-.tool-items--buton
-.predefined-color {
+.tools-menu--inline {
+	padding: 7px 15px;
+	display: flex;
+	flex-direction: row;
+	margin: 0 2px;
+	position: relative;
+}
+.tools-menu--colors {
+	margin: 0 -2px !important;
+}
+.tool-items--buton.predefined-color {
 	width: 22px;
 	height: 22px;
 	border-radius: 11px;
@@ -261,4 +277,3 @@ li {
 	display: list-item;
 	text-align: match-parent;
 }
-

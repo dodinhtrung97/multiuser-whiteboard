@@ -16,17 +16,14 @@
 		color = document.querySelector(':checked').getAttribute('data-color');
 	}, false);
 
-	/* Hook is--visible to toolbar selection */
+	/* Clear canvas */
 	$(document).ready(function() {
-		$('#tool-bar-colors').live('click', function() {
-			if ($('#hidden-toolbar-color').hasClass('is--visible')) {
-				$('#hidden-toolbar-color').removeClass('is--visible');
-			} else {
-				$('#hidden-toolbar-color').addClass('is--visible');
-			}
+		$('#tool-bar-clear').live('click', function() {
+			event.preventDefault();
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
 		});
 	})
-	
+
 	var isTouchSupported = 'ontouchstart' in window;
 	var isPointerSupported = navigator.pointerEnabled;
 	var isMSPointerSupported =  navigator.msPointerEnabled;
@@ -39,10 +36,9 @@
 	canvas.addEventListener(moveEvent, draw, false);
 	canvas.addEventListener(upEvent, endDraw, false);
 
-	document.getElementById("clear").addEventListener("click", function(e) {
-		event.preventDefault();
-		ctx.clearRect(0, 0, canvas.width, canvas.height);
-	})
+	function changeColor(newColor) {
+		color = newColor;
+	}
 
     /* Draw on canvas */
     function drawOnCanvas(color, plots) {
@@ -60,17 +56,7 @@
 		if(!message || message.plots.length < 1) return;
 		drawOnCanvas(message.color, message.plots);
     }
-    
-    // Get Older and Past Drawings
-    if(drawHistory) {
-	    pubnub.history({
-	    	channel  : channel,
-	    	count    : 50,
-	    	callback : function(messages) {
-	    		pubnub.each( messages[0], drawFromStream );
-	    	}
-	    });
-	}
+
     var isActive = false;
     var plots = [];
 
