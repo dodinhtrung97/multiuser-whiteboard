@@ -72,8 +72,9 @@
 	}
 
     /* Draw on canvas */
-    function drawOnCanvas(color, plots) {
+    function drawOnCanvas(penSize, color, plots) {
     	ctx.strokeStyle = color;
+    	ctx.lineWidth = penSize
 		ctx.beginPath();
 		ctx.moveTo(plots[0].x, plots[0].y);
 
@@ -85,8 +86,8 @@
 
     function drawFromStream(message) {
 		if(!message || message.plots.length < 1) return;
+		drawOnCanvas(message.penSize, message.color, message.plots);
 		ctx.beginPath();
-		drawOnCanvas(message.color, message.plots);
     }
 
     var isActive = false;
@@ -101,7 +102,7 @@
     	
     	plots.push({x: (x << 0), y: (y << 0)}); // round numbers for touch screens
 
-    	drawOnCanvas(color, plots);
+    	drawOnCanvas(ctx.lineWidth, color, plots);
 	}
 	
 	function startDraw(e) {
@@ -115,7 +116,9 @@
 
 		pubnub.publish({
 		    channel: channel,
-		    message: { 
+		    message: {
+		    	penSize: ctx.lineWidth,
+		    	color: ctx.strokeStyle,
 		        plots: plots // your array goes here
 		    } 
 		});
