@@ -1,6 +1,6 @@
 import React from 'react';
 import EventBus from '../eventBus';
-import ToolStore, { POINTER, PEN, LINE, ELLIPSE, RECT } from '../toolStore';
+import ToolStore, { POINTER, PEN, LINE, ELLIPSE, RECT, ERASER } from '../toolStore';
 import ColorPicker from './colorPicker';
 
 export default class Tools extends React.Component {
@@ -8,11 +8,12 @@ export default class Tools extends React.Component {
 		super();
 		this.state = {
 			tools: [
-				{ id: POINTER, label: 'fa-hand-pointer-o', type: 'cursor' },
-				{ id: LINE, label: 'fa-minus', type: 'line', selected: true },
-				{ id: RECT, label: 'fa-square-o', type: 'rect' },
-				{ id: ELLIPSE, label: 'fa-circle-thin', type: 'ellipse' },
-				{ id: PEN, label: 'fa-pencil', type: 'pen' },
+				{ id: POINTER, label: '../images/select.png', type: 'cursor' },
+				{ id: LINE, label: '../images/line.png', type: 'line', selected: true },
+				{ id: RECT, label: '../images/rect.png', type: 'rect' },
+				{ id: ELLIPSE, label: '../images/el.png', type: 'ellipse' },
+				{ id: PEN, label: '../images/pen.png', type: 'pen' },
+				{ id: ERASER, label: '../images/eraser.png', type: 'eraser' }
 			]
 		};
 		ToolStore.subscribe(() => {
@@ -31,7 +32,7 @@ export default class Tools extends React.Component {
 			key={i}
 			onClick={this.handleClick(i).bind(this)}
 			className={tool.selected ? 'selected' : ''}
-		><i className={tool.label + ' fa'}></i></div>)
+		><img src={tool.label}></img></div>)
 		return (<div id="tools">
 			{tools}
 			<ColorPicker />

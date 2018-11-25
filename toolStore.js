@@ -5,6 +5,7 @@ export const PEN ='Pen'
 export const LINE ='Line'
 export const ELLIPSE = 'Elipse'
 export const RECT = 'Rect'
+export const ERASER = 'Eraser'
 
 class ToolStore{
 
@@ -12,7 +13,7 @@ class ToolStore{
 		this.id = 'toolStore';
 		EventBus.on(EventBus.TOOL_CHANGE, this.toolChange.bind(this));
 		EventBus.on(EventBus.COLOR_CHANGE, this.colorChange.bind(this));
-		this.tool = LINE;
+		this.tool = PEN;
 		this.color = 'black';
 	}
 	subscribe(cb){

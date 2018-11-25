@@ -20,19 +20,38 @@
 			flex: 1;
 		}
 		#tools{
-			display: block;
+			margin-top: 100px;
+			background-color: #f0f0f0;
+			border: 1px solid #dddddd; 
+			border-radius: 8px;
+			height: 680px;
 		}
 		#tools > div{
 			width: 36px;
-		    padding: 8px;
+		    padding: 15px;
 		    font-size: 30;
 		    justify-content: center;
     		display: flex;
     		flex-direction: column;
     		align-items: center;
 		}
+		#tools > div > img {
+			display: inline-block;
+			padding: 5px;
+			max-width: 25px;
+			min-width: 25px;
+			max-height: 25px;
+			min-height: 25px;
+		}
+		#tools > div:hover{
+			border: 1px solid #dddddd; 
+			border-radius: 8px;
+			background-color: #d6d6d6;
+		}
 		#tools > div.selected{
-			background-color: black;
+			border: 1px solid #dddddd; 
+			border-radius: 8px;
+			background-color: #c7c8c9;
 			color: white;
 		}
 		#history{
@@ -61,7 +80,6 @@
 	  </style>
 </head>
 <body>
-
 	<div id="app"></div>
 	<script src="dist/index.js"></script>
 </body>

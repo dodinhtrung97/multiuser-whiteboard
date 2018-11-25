@@ -8,7 +8,7 @@ class EventBus{
 			UNDO: 'undo',
 			REDO: 'redo',
 			TOOL_CHANGE: 'toolChange',
-			COLOR_CHANGE: 'cororChange',
+			COLOR_CHANGE: 'colorChange',
 			PICK_VERSION: 'pickVersion',
 			MOVE: 'move'
 		};

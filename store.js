@@ -1,9 +1,10 @@
 import Immutable from 'immutable';
 import EventBus from './eventBus'
-import ToolStore, { POINTER, PEN, LINE, ELLIPSE, RECT } from './toolStore';
+import ToolStore, { POINTER, PEN, LINE, ELLIPSE, RECT, ERASER } from './toolStore';
 import Line from './components/shapes/line';
 import Pen from './components/shapes/Pen';
 import Rect from './components/shapes/rect';
+import Eraser from './components/shapes/eraser';
 import Ellipse from './components/shapes/ellipse';
 import { pointInsideRect, getShapeRect } from './utils'
 
@@ -17,6 +18,7 @@ mapTools[LINE] = Line
 mapTools[RECT] = Rect
 mapTools[ELLIPSE] = Ellipse
 mapTools[PEN] = Pen
+mapTools[ERASER] = Eraser
 
 class Store {
 	constructor() {
