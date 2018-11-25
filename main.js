@@ -9,5 +9,4 @@ ReactDOM.render(<div id='main'>
 						<Tools/>
 						<WhiteBoard />
 					</div>
-					<History/>
 		     	</div>, document.getElementById('app'));
