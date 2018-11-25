@@ -63,10 +63,8 @@ export default class WhiteBoard extends React.Component {
 	}
 
 	keyDown(e) {
-		switch (e.keyCode) {
-			case 27: //escape
-				EventBus.emit(EventBus.UNDO)
-				break;
+		if (e.which === 90 && e.ctrlKey) { //escape
+			EventBus.emit(EventBus.UNDO)
 		}
 	}
 	onMove(shape){
