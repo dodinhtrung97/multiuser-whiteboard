@@ -37,7 +37,8 @@ export default class ColorPicker extends React.Component {
 				backgroundColor: color,
 				width: 20,
 				height: 20,
-				margin: 5
+				margin: 5,
+				borderRadius: 10
 			};
 			let borderStyle = {
 			    display: 'flex',

@@ -104,7 +104,6 @@ class Store {
 		this.history.push(this.data.shapes);
 		this.historyIndex = -1;
 	}
-
 	undo() {
 		if (this.history.length > 0) {
 			if (this.historyIndex == -1) this.historyIndex = this.history.length - 1;
@@ -139,7 +138,12 @@ class Store {
 			}
 		})
 	}
-	redo() { }
+	redo() {
+		if (this.history.length > 0) {
+			if (this.historyIndex == -1) this.historyIndex = this.history.length - 1;
+			this.pickVersion(null, this.historyIndex + 1);
+		}
+	}
 }
 
 export default new Store();
