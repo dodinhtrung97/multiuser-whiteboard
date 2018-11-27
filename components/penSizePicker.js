@@ -28,6 +28,8 @@ export default class PenSizePicker extends React.Component {
 			top: '220px',
 			width: '42px',
 			height: '78px',
+			backgroundColor: '#f0f0f0',
+			borderRadius: '8px'
 		}
 		return (<div className="penSize" style={penSizeStyle}>
 					<NumberPicker
