@@ -6,7 +6,7 @@ import Pen from './components/shapes/Pen';
 import Rect from './components/shapes/rect';
 import Eraser from './components/shapes/eraser';
 import Ellipse from './components/shapes/ellipse';
-import { pointInsideRect, getShapeRect } from './utils'
+import { pointInsideRect, getShapeRect } from './utils';
 
 export const SELECT = 'Select'
 export const DRAW = 'Draw'

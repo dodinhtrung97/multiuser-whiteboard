@@ -1,17 +1,22 @@
 import React from 'react';
 import EventBus from '../eventBus';
 import Store from '../store';
-import Selection from './selection'
-import { getShapeRect } from '../utils'
+import Selection from './selection';
+import { getShapeRect } from '../utils';
+import openSocket from 'socket.io-client';
+
+const serverUrl = 'http://127.0.0.1:3000'
 
 export default class WhiteBoard extends React.Component {
 	constructor() {
 		super();
 
 		Store.subscribe(() => {
-			this.setState({ data: Store.data });
+			this.setState({ 
+					data: Store.data 
+				});
 		});
-		this.state = { data: Store.data };
+		this.state = { data: Store.data, socket: '' };
 		this.pressed = false;
 	}
 
@@ -22,8 +27,24 @@ export default class WhiteBoard extends React.Component {
 		document.addEventListener("keydown", this.keyDown.bind(this));
 		window.addEventListener("resize", this.onResize.bind(this));
 
+		const socket = openSocket(serverUrl)
+		this.setState({ data: Store.data, socket: socket });
+
 		this.onResize();
-		this.setState({ data: Store.data });
+
+		socket.on('apply_mouse_down', function(data){
+			this.pressed = true;
+			EventBus.emit(EventBus.START_PATH, data)
+		})
+		socket.on('apply_mouse_move', function(data){
+			if (this.pressed) {
+				EventBus.emit(EventBus.MOVE_PATH, data)
+			}
+		})
+		socket.on('apply_mouse_up', function(data){
+			this.pressed = false;
+			EventBus.emit(EventBus.END_PATH, data)
+		})
 	};
 
 	onResize() {
@@ -48,18 +69,24 @@ export default class WhiteBoard extends React.Component {
 		if (this._insideRect(this.rect, { x: e.clientX, y: e.clientY })) {
 			this.pressed = true;
 			EventBus.emit(EventBus.START_PATH, this.mousePos(e))
+
+			this.state.socket.emit('mouse_down', {pos: this.mousePos(e)})
 		}
 	}
 
 	mouseMove(e) {
 		if (this.pressed) {
 			EventBus.emit(EventBus.MOVE_PATH, this.mousePos(e))
+
+			this.state.socket.emit('mouse_move', {pos: this.mousePos(e)})
 		}
 	}
 
 	mouseUp(e) {
 		this.pressed = false;
 		EventBus.emit(EventBus.END_PATH, this.mousePos(e))
+
+		this.state.socket.emit('mouse_up', {pos: this.mousePos(e)})
 	}
 
 	keyDown(e) {
