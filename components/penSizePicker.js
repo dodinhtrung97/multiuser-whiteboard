@@ -26,12 +26,13 @@ export default class PenSizePicker extends React.Component {
 			position: 'absolute',
 			left: '90px',
 			top: '220px',
-			width: '15px',
+			width: '42px',
 			height: '78px',
 		}
-		return (<div id="penSize" style={penSizeStyle}>
+		return (<div className="penSize" style={penSizeStyle}>
 					<NumberPicker
 				        value={this.state.size}
+				        digits={2}
 				        onChange={(value) => this.handleOnChange(value).bind(this)}
 				    />
 			    </div>);
