@@ -3,7 +3,6 @@ import EventBus from '../eventBus';
 import Store from '../store';
 import Selection from './selection';
 import { getShapeRect } from '../utils';
-import { _insideRect } from '../utils'
 import socket from '../customSocket';
 
 export default class WhiteBoard extends React.Component {
@@ -26,7 +25,6 @@ export default class WhiteBoard extends React.Component {
 		document.addEventListener("keydown", this.keyDown.bind(this));
 		window.addEventListener("resize", this.onResize.bind(this));
 		
-		// this.setState({ data: Store.data });
 		this.setState({ data: Store.data });
 
 		this.onResize();
@@ -80,6 +78,7 @@ export default class WhiteBoard extends React.Component {
 
 	mouseMove(e) {
 		if (this.pressed) {
+			// console.log("FROM BOARD: " + this.mousePos(e).x + ' ' + this.mousePos(e).y)
 			EventBus.emit(EventBus.MOVE_PATH, this.mousePos(e))
 
 			socket.emit('mouse_move', {rect: this.rect, pos: this.mousePos(e)})

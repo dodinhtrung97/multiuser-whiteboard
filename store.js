@@ -6,7 +6,7 @@ import Pen from './components/shapes/Pen';
 import Rect from './components/shapes/rect';
 import Eraser from './components/shapes/eraser';
 import Ellipse from './components/shapes/ellipse';
-import { pointInsideRect, getShapeRect } from './utils';
+import { pointInsideRect, getShapeRect, filterPath, isSameShape } from './utils';
 
 export const SELECT = 'Select'
 export const DRAW = 'Draw'
@@ -70,7 +70,7 @@ class Store {
 		this.emitChanges()
 	}
 	movePath(event, position) {
-		//console.log('position',position)
+		// console.log(position)
 		if (this.data.mouseTracker) {
 			this.data.mouseTracker.path.push(position);
 			this.emitChanges()
@@ -89,6 +89,9 @@ class Store {
 		}
 	}
 	addShapeToCanvas(shape) {
+		const filteredPath = filterPath(shape.path)
+		shape.path = filteredPath
+
 		this.data.shapes = this.data.shapes.push(shape)
 		this.data.mouseTracker = null
 		this.addVersion()
@@ -129,7 +132,7 @@ class Store {
 	}
 	move(event, { shape, move }) {
 		this.data.shapes = this.data.shapes.map(s => {
-			if (shape === s) {
+			if (isSameShape(shape, s)) {
 				return {
 					...s, path: s.path.map(({ x, y }) => ({
 						x: x + move.x,
