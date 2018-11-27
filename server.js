@@ -40,6 +40,14 @@ io.on('connection', function (client) {
   client.on('shape_move', function(data) {
     io.emit('apply_shape_move', {shape: data.shape, move: data.move})
   })
+
+  client.on('undo', function(){
+    io.emit('apply_undo', {msg: "Undo"})
+  })
+
+  client.on('redo', function(){
+    io.emit('apply_redo', {msg: "Redo"})
+  })
 })
 
 server.listen(3000, function (err) {

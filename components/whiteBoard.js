@@ -47,6 +47,12 @@ export default class WhiteBoard extends React.Component {
 			const selectedMove = data.move
 			EventBus.emit(EventBus.MOVE, {shape: selectedShape, move: selectedMove})
 		})
+		socket.on('apply_undo', function(msg){
+			EventBus.emit(EventBus.UNDO)
+		})
+		socket.on('apply_redo', function(msg){
+			EventBus.emit(EventBus.REDO)
+		})
 	};
 
 	onResize() {
@@ -94,10 +100,10 @@ export default class WhiteBoard extends React.Component {
 
 	keyDown(e) {
 		if (e.which === 90 && e.ctrlKey) {
-			EventBus.emit(EventBus.UNDO)
+			socket.emit('undo', {msg: "Undo"})
 		}
 		if (e.which === 89 && e.ctrlKey) {
-			EventBus.emit(EventBus.REDO)
+			socket.emit('redo', {msg: "Redo"})
 		}
 	}
 	onMove(shape){
