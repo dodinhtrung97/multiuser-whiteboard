@@ -26,6 +26,7 @@ class EventBus{
 	}
 
 	emit(event){
+		console.log(arguments)
 		let callbacks = this.listeners[event] || [];
 		callbacks.forEach(callback=>{
 			callback.apply({}, arguments);

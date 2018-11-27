@@ -3,7 +3,7 @@ import EventBus from '../eventBus';
 import ToolStore, { COLOR_PICKER, PEN_SIZE_PICKER, POINTER, PEN, LINE, ELLIPSE, RECT, ERASER } from '../toolStore';
 import ColorPicker from './colorPicker';
 import PenSizePicker from './penSizePicker';
-import Socket from '../Socket';
+import socket from '../Socket';
 
 export default class Tools extends React.Component {
 	constructor() {
@@ -29,7 +29,7 @@ export default class Tools extends React.Component {
 
 	componentDidMount() {
 		const toolList = this.state.tools
-		Socket.socket.on('apply_tool_change', function(data){
+		socket.on('apply_tool_change', function(data){
 			EventBus.emit(EventBus.TOOL_CHANGE, toolList[data.index].id);
 		})
 	};
@@ -45,7 +45,7 @@ export default class Tools extends React.Component {
 			else this.state.showPenSizePicker = false
 			
 			EventBus.emit(EventBus.TOOL_CHANGE, this.state.tools[index].id);
-			Socket.socket.emit('tool_change', {index: index})
+			socket.emit('tool_change', {index: index})
 		}
 	}
 

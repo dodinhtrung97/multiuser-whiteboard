@@ -2,6 +2,7 @@ import React from 'react';
 import EventBus from '../eventBus';
 import ToolStore from '../toolStore';
 import Slider from 'react-rangeslider';
+import socket from '../socket';
 
 export default class ColorPicker extends React.Component {
 	constructor(){
@@ -25,9 +26,19 @@ export default class ColorPicker extends React.Component {
 			this.setState({selectedColorIndex:selectedColorIndex});
 		})
 	}
+
+	componentDidMount() {
+		const colorList = this.state.colors
+		socket.on('apply_color_change', function(data){
+			console.log(colorList[data.index])
+			EventBus.emit(EventBus.COLOR_CHANGE, colorList[data.index]);
+		})
+	};
+
 	handleClick(index){
 		return function(){
-			EventBus.emit(EventBus.COLOR_CHANGE,this.state.colors[index]);
+			EventBus.emit(EventBus.COLOR_CHANGE, this.state.colors[index]);
+			socket.emit('color_change', {index: index})
 		}
 	}
 

@@ -15,22 +15,22 @@ io.on('connection', function (client) {
 
   client.on('mouse_down', function(data) {
     io.emit('apply_mouse_down', data.pos)
-    console.log(data.pos)
   })
 
   client.on('mouse_move', function(data) {
     io.emit('apply_mouse_move', data.pos)
-    console.log(data.pos)
   })
 
   client.on('mouse_up', function(data) {
     io.emit('apply_mouse_up', data.pos)
-    console.log(data.pos)
   })
 
   client.on('tool_change', function(data) {
     io.emit('apply_tool_change', {index: data.index})
-    console.log("Tool index: " + data.index)
+  })
+
+  client.on('color_change', function(data) {
+    io.emit('apply_color_change', {index: data.index})
   })
 })
 
