@@ -13,13 +13,12 @@ export default class PenSizePicker extends React.Component {
 		};
 		ToolStore.subscribe(()=>{
 			let size = ToolStore.size;
-			// this.setState({size: size});
+			this.setState({size: size});
 		})
 	}
 
 	componentDidMount() {
 		socket.on('apply_pen_size_change', function(data){
-			console.log("OK")
 			EventBus.emit(EventBus.PEN_SIZE_CHANGE, data.size);
 		})
 	};
