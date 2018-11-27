@@ -27,6 +27,11 @@ io.on('connection', function (client) {
     io.emit('apply_mouse_up', data.pos)
     console.log(data.pos)
   })
+
+  client.on('tool_change', function(data) {
+    io.emit('apply_tool_change', {index: data.index})
+    console.log("Tool index: " + data.index)
+  })
 })
 
 server.listen(3000, function (err) {

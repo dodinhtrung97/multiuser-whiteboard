@@ -3,9 +3,7 @@ import EventBus from '../eventBus';
 import Store from '../store';
 import Selection from './selection';
 import { getShapeRect } from '../utils';
-import openSocket from 'socket.io-client';
-
-const serverUrl = 'http://127.0.0.1:3000'
+import Socket from '../socket';
 
 export default class WhiteBoard extends React.Component {
 	constructor() {
@@ -16,7 +14,7 @@ export default class WhiteBoard extends React.Component {
 					data: Store.data 
 				});
 		});
-		this.state = { data: Store.data, socket: '' };
+		this.state = { data: Store.data };
 		this.pressed = false;
 	}
 
@@ -26,22 +24,22 @@ export default class WhiteBoard extends React.Component {
 		document.addEventListener("mouseup", this.mouseUp.bind(this));
 		document.addEventListener("keydown", this.keyDown.bind(this));
 		window.addEventListener("resize", this.onResize.bind(this));
-
-		const socket = openSocket(serverUrl)
-		this.setState({ data: Store.data, socket: socket });
+		
+		// this.setState({ data: Store.data });
+		this.setState({ data: Store.data });
 
 		this.onResize();
 
-		socket.on('apply_mouse_down', function(data){
+		Socket.socket.on('apply_mouse_down', function(data){
 			this.pressed = true;
 			EventBus.emit(EventBus.START_PATH, data)
 		})
-		socket.on('apply_mouse_move', function(data){
+		Socket.socket.on('apply_mouse_move', function(data){
 			if (this.pressed) {
 				EventBus.emit(EventBus.MOVE_PATH, data)
 			}
 		})
-		socket.on('apply_mouse_up', function(data){
+		Socket.socket.on('apply_mouse_up', function(data){
 			this.pressed = false;
 			EventBus.emit(EventBus.END_PATH, data)
 		})
@@ -70,7 +68,7 @@ export default class WhiteBoard extends React.Component {
 			this.pressed = true;
 			EventBus.emit(EventBus.START_PATH, this.mousePos(e))
 
-			this.state.socket.emit('mouse_down', {pos: this.mousePos(e)})
+			Socket.socket.emit('mouse_down', {pos: this.mousePos(e)})
 		}
 	}
 
@@ -78,7 +76,7 @@ export default class WhiteBoard extends React.Component {
 		if (this.pressed) {
 			EventBus.emit(EventBus.MOVE_PATH, this.mousePos(e))
 
-			this.state.socket.emit('mouse_move', {pos: this.mousePos(e)})
+			Socket.socket.emit('mouse_move', {pos: this.mousePos(e)})
 		}
 	}
 
@@ -86,7 +84,7 @@ export default class WhiteBoard extends React.Component {
 		this.pressed = false;
 		EventBus.emit(EventBus.END_PATH, this.mousePos(e))
 
-		this.state.socket.emit('mouse_up', {pos: this.mousePos(e)})
+		Socket.socket.emit('mouse_up', {pos: this.mousePos(e)})
 	}
 
 	keyDown(e) {
