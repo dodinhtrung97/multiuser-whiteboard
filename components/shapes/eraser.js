@@ -21,7 +21,7 @@ export default class Eraser extends React.Component {
 		let d = this.prepareData();
 		return (<path d={d}
 		        stroke={'white'}
-		        strokeWidth={1}
+			    strokeWidth={this.props.size}
 		        fill="none"
 		      />);
 	}

@@ -9,6 +9,7 @@ class EventBus{
 			REDO: 'redo',
 			TOOL_CHANGE: 'toolChange',
 			COLOR_CHANGE: 'colorChange',
+			PEN_SIZE_CHANGE: 'penSizeChange',
 			PICK_VERSION: 'pickVersion',
 			MOVE: 'move'
 		};
@@ -23,7 +24,7 @@ class EventBus{
 	}
 
 	emit(event){
-		//console.log(arguments)
+		console.log(event)
 		let callbacks = this.listeners[event] || [];
 		callbacks.forEach(callback=>{
 			callback.apply({}, arguments);

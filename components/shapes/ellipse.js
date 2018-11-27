@@ -22,7 +22,7 @@ export default class Ellipse extends React.Component {
 				rx = {ellipse.rx}
 				ry = {ellipse.ry}
 				stroke={this.props.color}
-		        strokeWidth={1}
+			    strokeWidth={this.props.size}
 		        fill="none"
 		      />);
 	}

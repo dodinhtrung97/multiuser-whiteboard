@@ -83,11 +83,11 @@ export default class WhiteBoard extends React.Component {
 			if (shape.selected) {
 				selection = <Selection rect={getShapeRect(shape)} move={this.onMove(shape)}/>
 			}
-			return <shape.class key={i} path={shape.path} color={shape.color} />
+			return <shape.class key={i} path={shape.path} color={shape.color} size={shape.size}/>
 		});
 		let current = null;
 		if (data.mouseTracker && data.mouseTracker.class) {
-			current = <data.mouseTracker.class color={data.mouseTracker.color} path={data.mouseTracker.path} />
+			current = <data.mouseTracker.class color={data.mouseTracker.color} path={data.mouseTracker.path} size={data.mouseTracker.size} />
 		}
 
 		return (

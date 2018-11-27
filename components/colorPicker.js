@@ -1,6 +1,7 @@
 import React from 'react';
 import EventBus from '../eventBus';
 import ToolStore from '../toolStore';
+import Slider from 'react-rangeslider';
 
 export default class ColorPicker extends React.Component {
 	constructor(){
@@ -61,7 +62,8 @@ export default class ColorPicker extends React.Component {
 
 			return <div key={i} style={borderStyle}>
 						<div style={style} onClick={this.handleClick(i).bind(this)}></div>
-					</div>});
+					</div>
+		});
 
 		return(<div id="colors" style={colorsStyle}> {colors} </div>);
 	}

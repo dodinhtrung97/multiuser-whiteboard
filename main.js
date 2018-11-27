@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import WhiteBoard from './components/whiteBoard';
+import PenSizePicker from './components/penSizePicker';
 import Tools from './components/tools';
 import History from './components/history';
 

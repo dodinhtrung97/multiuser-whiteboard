@@ -10,14 +10,22 @@ module.exports = {
 	},
 	devtool: 'inline-source-map',
 	module:{
-		rules: [{
-			test: /\.js$/,
-			exclude: /node_modules/,
-			loader: 'babel-loader',
-			query: {
-				presets: ['stage-2', 'react', 'es2015']
+		rules: [
+			{
+				test: /\.js$/,
+				exclude: /node_modules/,
+				loader: 'babel-loader',
+				query: {
+					presets: ['stage-2', 'react', 'es2015']
+				},
 			},
-			
-		}]
-	}
+			{
+	            test: /\.css$/,
+	            loader: [ 'style-loader', 'css-loader' ]
+	        }
+        ]
+	},
+    resolve: {
+    	extensions: ['.css', '.js', '.jsx']
+    }
 }

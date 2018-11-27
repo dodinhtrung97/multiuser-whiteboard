@@ -20,9 +20,9 @@ export default class Pen extends React.Component {
 	render(){
 		let d = this.prepareData();
 		return (<path d={d}
-		        stroke={this.props.color}
-		        strokeWidth={1}
-		        fill="none"
-		      />);
+			        stroke={this.props.color}
+			        strokeWidth={this.props.size}
+			        fill="none"
+			    />);
 	}
 }

@@ -38,14 +38,16 @@ class Store {
 		};
 		this.history = [this.data.shapes];
 		this.historyIndex = -1;
-		this.tool = Line;
+		this.tool = Pen;
 		this.color = 'black';
+		this.size = ToolStore.size;
 
 		ToolStore.subscribe(() => {
 			const tool = ToolStore.tool;
 			this.toolType = tool
 			this.tool = mapTools[tool] || null
 			this.color = ToolStore.color
+			this.size = ToolStore.size
 		})
 	}
 	subscribe(cb) {
@@ -59,7 +61,8 @@ class Store {
 			class: this.tool,
 			type: this.toolType,
 			path: [position],
-			color: this.color
+			color: this.color,
+			size: this.size
 		}
 		if (this.toolType === POINTER) {
 			this.selectShape(position)
@@ -116,7 +119,7 @@ class Store {
 		}
 	}
 	pickVersion(event, index) {
-		console.log(index)
+		// console.log(index)
 		if (this.history && this.history[index]) {
 			this.historyIndex = index;
 			let shapes = this.history[index];
