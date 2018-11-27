@@ -23,7 +23,7 @@ export default class ColorPicker extends React.Component {
 		ToolStore.subscribe(()=>{
 			let selectedColor = ToolStore.color;
 			let selectedColorIndex = this.state.colors.indexOf(selectedColor);
-			// this.setState({selectedColorIndex:selectedColorIndex});
+			this.setState({selectedColorIndex:selectedColorIndex});
 		})
 	}
 

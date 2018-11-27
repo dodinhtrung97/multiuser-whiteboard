@@ -33,9 +33,12 @@ io.on('connection', function (client) {
     io.emit('apply_color_change', {index: data.index})
   })
 
+  client.on('pen_size_change', function(data) {
+    io.emit('apply_pen_size_change', {size: data.size})
+  })
+
   client.on('shape_move', function(data) {
     io.emit('apply_shape_move', {shape: data.shape, move: data.move})
-    console.log({shape: data.shape, move: data.move})
   })
 })
 

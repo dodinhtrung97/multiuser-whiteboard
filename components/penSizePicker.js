@@ -1,6 +1,7 @@
 import React from 'react';
 import EventBus from '../eventBus';
 import ToolStore from '../toolStore';
+import socket from '../customSocket';
 import NumberPicker from "react-number-picker";
 import "react-number-picker/dist/style.css"
 
@@ -16,9 +17,18 @@ export default class PenSizePicker extends React.Component {
 		})
 	}
 
+	componentDidMount() {
+		socket.on('apply_pen_size_change', function(data){
+			console.log("OK")
+			EventBus.emit(EventBus.PEN_SIZE_CHANGE, data.size);
+		})
+	};
+
 	handleOnChange(value) {
 		this.setState({size: value});
 		EventBus.emit(EventBus.PEN_SIZE_CHANGE, value);
+
+		socket.emit('pen_size_change', {size: value})
 	}
 
 	render(){
