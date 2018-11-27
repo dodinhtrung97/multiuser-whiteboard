@@ -14,7 +14,7 @@ io.on('connection', function (client) {
   })
 
   client.on('mouse_down', function(data) {
-    io.emit('apply_mouse_down', data.pos)
+    io.emit('apply_mouse_down', {rect: data.rect, pos: data.pos})
   })
 
   client.on('mouse_move', function(data) {
@@ -31,6 +31,11 @@ io.on('connection', function (client) {
 
   client.on('color_change', function(data) {
     io.emit('apply_color_change', {index: data.index})
+  })
+
+  client.on('shape_move', function(data) {
+    io.emit('apply_shape_move', {shape: data.shape, move: data.move})
+    console.log({shape: data.shape, move: data.move})
   })
 })
 

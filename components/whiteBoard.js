@@ -3,7 +3,8 @@ import EventBus from '../eventBus';
 import Store from '../store';
 import Selection from './selection';
 import { getShapeRect } from '../utils';
-import socket from '../socket';
+import { _insideRect } from '../utils'
+import socket from '../customSocket';
 
 export default class WhiteBoard extends React.Component {
 	constructor() {
@@ -32,7 +33,7 @@ export default class WhiteBoard extends React.Component {
 
 		socket.on('apply_mouse_down', function(data){
 			this.pressed = true;
-			EventBus.emit(EventBus.START_PATH, data)
+			EventBus.emit(EventBus.START_PATH, data.pos)
 		})
 		socket.on('apply_mouse_move', function(data){
 			if (this.pressed) {
@@ -42,6 +43,11 @@ export default class WhiteBoard extends React.Component {
 		socket.on('apply_mouse_up', function(data){
 			this.pressed = false;
 			EventBus.emit(EventBus.END_PATH, data)
+		})
+		socket.on('apply_shape_move', function(data){
+			const selectedShape = data.shape
+			const selectedMove = data.move
+			EventBus.emit(EventBus.MOVE, {shape: selectedShape, move: selectedMove})
 		})
 	};
 
@@ -68,7 +74,7 @@ export default class WhiteBoard extends React.Component {
 			this.pressed = true;
 			EventBus.emit(EventBus.START_PATH, this.mousePos(e))
 
-			socket.emit('mouse_down', {pos: this.mousePos(e)})
+			socket.emit('mouse_down', {rect: this.rect, pos: this.mousePos(e)})
 		}
 	}
 
@@ -76,7 +82,7 @@ export default class WhiteBoard extends React.Component {
 		if (this.pressed) {
 			EventBus.emit(EventBus.MOVE_PATH, this.mousePos(e))
 
-			socket.emit('mouse_move', {pos: this.mousePos(e)})
+			socket.emit('mouse_move', {rect: this.rect, pos: this.mousePos(e)})
 		}
 	}
 
@@ -98,6 +104,8 @@ export default class WhiteBoard extends React.Component {
 	onMove(shape){
 		return move=>{
 			EventBus.emit(EventBus.MOVE, {shape, move})
+
+			socket.emit('shape_move', {shape: shape, move: move})
 		}
 	}
 

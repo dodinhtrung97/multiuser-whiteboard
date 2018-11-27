@@ -12,7 +12,7 @@ export default class PenSizePicker extends React.Component {
 		};
 		ToolStore.subscribe(()=>{
 			let size = ToolStore.size;
-			this.setState({size: size});
+			// this.setState({size: size});
 		})
 	}
 
@@ -35,7 +35,7 @@ export default class PenSizePicker extends React.Component {
 					<NumberPicker
 				        value={this.state.size}
 				        digits={2}
-				        onChange={(value) => this.handleOnChange(value).bind(this)}
+				        onChange={(value) => this.handleOnChange(value)}
 				    />
 			    </div>);
 	}

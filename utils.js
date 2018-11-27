@@ -36,3 +36,8 @@ export function getShapeRect(shape) {
     }
   }
 }
+
+export function _insideRect(rect, point) {
+  return point.x > rect.left && point.x < rect.right
+    && point.y > rect.top && point.y < rect.bottom;
+}

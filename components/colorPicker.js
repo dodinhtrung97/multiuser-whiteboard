@@ -2,7 +2,7 @@ import React from 'react';
 import EventBus from '../eventBus';
 import ToolStore from '../toolStore';
 import Slider from 'react-rangeslider';
-import socket from '../socket';
+import socket from '../customSocket';
 
 export default class ColorPicker extends React.Component {
 	constructor(){
@@ -23,7 +23,7 @@ export default class ColorPicker extends React.Component {
 		ToolStore.subscribe(()=>{
 			let selectedColor = ToolStore.color;
 			let selectedColorIndex = this.state.colors.indexOf(selectedColor);
-			this.setState({selectedColorIndex:selectedColorIndex});
+			// this.setState({selectedColorIndex:selectedColorIndex});
 		})
 	}
 

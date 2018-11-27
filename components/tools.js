@@ -3,7 +3,7 @@ import EventBus from '../eventBus';
 import ToolStore, { COLOR_PICKER, PEN_SIZE_PICKER, POINTER, PEN, LINE, ELLIPSE, RECT, ERASER } from '../toolStore';
 import ColorPicker from './colorPicker';
 import PenSizePicker from './penSizePicker';
-import socket from '../Socket';
+import socket from '../customSocket';
 
 export default class Tools extends React.Component {
 	constructor() {
