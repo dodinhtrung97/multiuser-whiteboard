@@ -30,14 +30,12 @@ export default class ColorPicker extends React.Component {
 	componentDidMount() {
 		const colorList = this.state.colors
 		socket.on('apply_color_change', function(data){
-			console.log(colorList[data.index])
 			EventBus.emit(EventBus.COLOR_CHANGE, colorList[data.index]);
 		})
 	};
 
 	handleClick(index){
 		return function(){
-			EventBus.emit(EventBus.COLOR_CHANGE, this.state.colors[index]);
 			socket.emit('color_change', {index: index})
 		}
 	}

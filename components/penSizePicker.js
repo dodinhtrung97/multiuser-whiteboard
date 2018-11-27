@@ -25,7 +25,6 @@ export default class PenSizePicker extends React.Component {
 
 	handleOnChange(value) {
 		this.setState({size: value});
-		EventBus.emit(EventBus.PEN_SIZE_CHANGE, value);
 
 		socket.emit('pen_size_change', {size: value})
 	}
@@ -35,8 +34,8 @@ export default class PenSizePicker extends React.Component {
 			position: 'absolute',
 			left: '90px',
 			top: '220px',
-			width: '42px',
-			height: '78px',
+			width: '44px',
+			height: '80px',
 			backgroundColor: '#f0f0f0',
 			borderRadius: '8px'
 		}
