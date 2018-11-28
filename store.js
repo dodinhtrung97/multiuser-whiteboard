@@ -99,6 +99,7 @@ class Store {
 	selectShape(position) {
 		this.data.shapes = this.data.shapes.map(shape => {
 			if (pointInsideRect(position, getShapeRect(shape))) {
+				console.log(shape)
 				return { ...shape, selected: true }
 			} else {
 				return { ...shape, selected: false }

@@ -16,7 +16,7 @@ export function getShapeRect(shape) {
       width: 2 * halfWidth,
       height: 2 * halfHeight,
     }
-  } else if (shape.type === PEN) {
+  } else {
     const minX = Math.min( ...shape.path.map(p=>p.x))
     const maxX = Math.max( ...shape.path.map(p=>p.x))
     const minY = Math.min( ...shape.path.map(p=>p.y))
@@ -26,13 +26,6 @@ export function getShapeRect(shape) {
       y: minY,
       width: maxX - minX,
       height: maxY - minY,
-    }
-  } else {
-    return {
-      x: Math.min(shape.path[0].x, shape.path[end].x),
-      y: Math.min(shape.path[0].y, shape.path[end].y),
-      width: Math.abs(shape.path[0].x - shape.path[end].x),
-      height: Math.abs(shape.path[0].y - shape.path[end].y),
     }
   }
 }
@@ -53,19 +46,15 @@ export function filterPath(path) {
 
 export function isSameShape(shape1, shape2) {
   if (shape1.path.length != shape2.path.length) return false
+  if (shape1.color != shape2.color) return false
+  if (shape1.selected != shape2.selected) return false
+  if (shape1.size != shape2.size) return false
+  if (shape1.type != shape2.type) return false
 
   for (var i = 0; i < shape1.path.length; i++) {
     if (shape1.path[i].x != shape2.path[i].x || shape1.path[i].y != shape2.path[i].y)
       return false
   }
-
-  if (shape1.color != shape2.color) return false
-
-  if (shape1.selected != shape2.selected) return false
-
-  if (shape1.size != shape2.size) return false
-
-  if (shape1.type != shape2.type) return false
 
   return true
 }
