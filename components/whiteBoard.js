@@ -15,6 +15,7 @@ export default class WhiteBoard extends React.Component {
 				});
 		});
 		this.state = { data: Store.data };
+		this._id = '';
 		this.pressed = false;
 	}
 
@@ -32,18 +33,27 @@ export default class WhiteBoard extends React.Component {
 
 		this.onResize();
 
+		socket.on('client_connected', function(data){
+			this._id = data.id;
+		})
 		socket.on('apply_mouse_down', function(data){
-			this.pressed = true;
-			EventBus.emit(EventBus.START_PATH, data.pos)
+			if (data.id != this._id) {
+				this.pressed = true;
+				EventBus.emit(EventBus.START_PATH, data.pos)
+			}
 		})
 		socket.on('apply_mouse_move', function(data){
-			if (this.pressed) {
-				EventBus.emit(EventBus.MOVE_PATH, data)
+			if (data.id != this._id) {
+				if (this.pressed) {
+					EventBus.emit(EventBus.MOVE_PATH, data.pos)
+				}
 			}
 		})
 		socket.on('apply_mouse_up', function(data){
-			this.pressed = false;
-			EventBus.emit(EventBus.END_PATH, data)
+			if (data.id != this._id) {
+				this.pressed = false;
+				EventBus.emit(EventBus.END_PATH, data.pos)
+			}
 		})
 		socket.on('apply_shape_move', function(data){
 			const selectedShape = data.shape
@@ -78,21 +88,21 @@ export default class WhiteBoard extends React.Component {
 
 	mouseDown(e) {
 		this.pressed = true;
-		EventBus.emit(EventBus.START_PATH, this.mousePos(e))
-		socket.emit('mouse_down', {rect: this.rect, pos: this.mousePos(e)})
+		EventBus.emit(EventBus.START_PATH, {id: this._id, this.mousePos(e)})
+		socket.emit('mouse_down', {id: this._id, rect: this.rect, pos: this.mousePos(e)})
 	}
 
 	mouseMove(e) {
 		if (this.pressed) {
-			EventBus.emit(EventBus.MOVE_PATH, this.mousePos(e))
+			EventBus.emit(EventBus.MOVE_PATH, {id: this._id, this.mousePos(e)})
 		}
-		socket.emit('mouse_move', {rect: this.rect, pos: this.mousePos(e)})
+		socket.emit('mouse_move', {id: this._id, rect: this.rect, pos: this.mousePos(e)})
 	}
 
 	mouseUp(e) {
 		this.pressed = false;
-		EventBus.emit(EventBus.END_PATH, this.mousePos(e))
-		socket.emit('mouse_up', {pos: this.mousePos(e)})
+		EventBus.emit(EventBus.END_PATH, {id: this._id, this.mousePos(e)})
+		socket.emit('mouse_up', {id: this._id, pos: this.mousePos(e)})
 	}
 
 	keyDown(e) {

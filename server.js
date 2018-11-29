@@ -4,6 +4,7 @@ const port = process.env.PORT || 3000;
 
 io.on('connection', function (client) {
   console.log("Client connected, with id: " + client.id)
+  io.emit('client_connected', {id: client.id})
 
   client.on('disconnect', function () {
     console.log('client' + client.id + 'disconnect...')
@@ -15,15 +16,15 @@ io.on('connection', function (client) {
   })
 
   client.on('mouse_down', function(data) {
-    io.emit('apply_mouse_down', {rect: data.rect, pos: data.pos})
+    io.emit('apply_mouse_down', {id: data.id, rect: data.rect, pos: data.pos})
   })
 
   client.on('mouse_move', function(data) {
-    io.emit('apply_mouse_move', data.pos)
+    io.emit('apply_mouse_move', {id: data.id, pos: data.pos})
   })
 
   client.on('mouse_up', function(data) {
-    io.emit('apply_mouse_up', data.pos)
+    io.emit('apply_mouse_up', {id: data.id, pos: data.pos})
   })
 
   client.on('tool_change', function(data) {
