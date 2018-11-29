@@ -5,7 +5,7 @@
   "main": "./index.js",
   "scripts": {
     "heroku-prebuild": "npm install --dev",
-    "start": "webpack-dev-server -d --port $PORT --host 0.0.0.0",
+    "start": "webpack-dev-server -d",
     "build": "webpack"
   },
   "author": "Trung Do Dinh",
