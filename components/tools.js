@@ -43,8 +43,7 @@ export default class Tools extends React.Component {
 			if (this.state.tools[index].id == 'Pen')
 				this.state.showPenSizePicker = !this.state.showPenSizePicker
 			else this.state.showPenSizePicker = false
-			
-			EventBus.emit(EventBus.TOOL_CHANGE, this.state.tools[index].id);
+
 			socket.emit('tool_change', {index: index})
 		}
 	}
