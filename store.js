@@ -89,6 +89,7 @@ class Store {
 		}
 	}
 	addShapeToCanvas(shape) {
+		console.log(shape)
 		const filteredPath = filterPath(shape.path)
 		shape.path = filteredPath
 
