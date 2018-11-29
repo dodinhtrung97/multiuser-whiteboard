@@ -77,7 +77,7 @@ export default class WhiteBoard extends React.Component {
 	}
 
 	mouseDown(e) {
-		EventBus.emit(EventBus.START_PATH, this.mousePos(e))
+		socket.emit('mouse_down', {rect: this.rect, pos: this.mousePos(e)})
 	}
 
 	mouseMove(e) {
@@ -99,6 +99,8 @@ export default class WhiteBoard extends React.Component {
 	onMove(shape){
 		return move=>{
 			EventBus.emit(EventBus.MOVE, {shape, move})
+
+			socket.emit('shape_move', {shape: shape, move: move})
 		}
 	}
 
