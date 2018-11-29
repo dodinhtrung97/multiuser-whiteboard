@@ -30,12 +30,6 @@ export default class Tools extends React.Component {
 	componentDidMount() {
 		const toolList = this.state.tools
 		socket.on('apply_tool_change', function(data){
-			EventBus.emit(EventBus.TOOL_CHANGE, toolList[data.index].id);
-		})
-	};
-
-	handleClick(index) {
-		return function () {
 			if (this.state.tools[index].id == 'ColorPicker')
 				this.state.showColorPicker = !this.state.showColorPicker
 			else this.state.showColorPicker = false
@@ -44,6 +38,12 @@ export default class Tools extends React.Component {
 				this.state.showPenSizePicker = !this.state.showPenSizePicker
 			else this.state.showPenSizePicker = false
 
+			EventBus.emit(EventBus.TOOL_CHANGE, toolList[data.index].id);
+		})
+	};
+
+	handleClick(index) {
+		return function () {
 			socket.emit('tool_change', {index: index})
 		}
 	}

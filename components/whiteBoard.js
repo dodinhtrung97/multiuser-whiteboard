@@ -88,20 +88,20 @@ export default class WhiteBoard extends React.Component {
 
 	mouseDown(e) {
 		this.pressed = true;
-		EventBus.emit(EventBus.START_PATH, {id: this._id, this.mousePos(e)})
+		EventBus.emit(EventBus.START_PATH, this.mousePos(e))
 		socket.emit('mouse_down', {id: this._id, rect: this.rect, pos: this.mousePos(e)})
 	}
 
 	mouseMove(e) {
 		if (this.pressed) {
-			EventBus.emit(EventBus.MOVE_PATH, {id: this._id, this.mousePos(e)})
+			EventBus.emit(EventBus.MOVE_PATH, this.mousePos(e))
 		}
 		socket.emit('mouse_move', {id: this._id, rect: this.rect, pos: this.mousePos(e)})
 	}
 
 	mouseUp(e) {
 		this.pressed = false;
-		EventBus.emit(EventBus.END_PATH, {id: this._id, this.mousePos(e)})
+		EventBus.emit(EventBus.END_PATH, this.mousePos(e))
 		socket.emit('mouse_up', {id: this._id, pos: this.mousePos(e)})
 	}
 
