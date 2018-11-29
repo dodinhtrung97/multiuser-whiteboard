@@ -1,6 +1,6 @@
 import openSocket from 'socket.io-client';
 
-const serverUrl = 'https://onlinewhiteboard.herokuapp.com:3000'
+const serverUrl = 'https://onlinewhiteboardthesis.herokuapp.com:3000'
 
 const socket = openSocket(serverUrl)
 
