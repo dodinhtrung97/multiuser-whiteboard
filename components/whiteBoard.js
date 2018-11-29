@@ -77,8 +77,7 @@ export default class WhiteBoard extends React.Component {
 	}
 
 	mouseDown(e) {
-			EventBus.emit(EventBus.START_PATH, this.mousePos(e))
-		}
+		EventBus.emit(EventBus.START_PATH, this.mousePos(e))
 	}
 
 	mouseMove(e) {
