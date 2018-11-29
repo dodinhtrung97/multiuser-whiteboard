@@ -36,21 +36,21 @@ export default class WhiteBoard extends React.Component {
 		socket.on('client_connected', (data) => {
 			this._id = data.id;
 		})
-		socket.on('apply_mouse_down', function(data){
+		socket.on('apply_mouse_down', (data) => {
 			if (data.id != this._id) {
 				console.log(data.id)
 				this.pressed = true;
 				EventBus.emit(EventBus.START_PATH, data.pos)
 			}
 		})
-		socket.on('apply_mouse_move', function(data){
+		socket.on('apply_mouse_move', (data) => {
 			if (data.id != this._id) {
 				if (this.pressed) {
 					EventBus.emit(EventBus.MOVE_PATH, data.pos)
 				}
 			}
 		})
-		socket.on('apply_mouse_up', function(data){
+		socket.on('apply_mouse_up', (data) => {
 			if (data.id != this._id) {
 				this.pressed = false;
 				EventBus.emit(EventBus.END_PATH, data.pos)
