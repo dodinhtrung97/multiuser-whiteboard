@@ -2,7 +2,7 @@ import Immutable from 'immutable';
 import EventBus from './eventBus'
 import ToolStore, { POINTER, PEN, LINE, ELLIPSE, RECT, ERASER } from './toolStore';
 import Line from './components/shapes/line';
-import Pen from './components/shapes/Pen';
+import Pen from './components/shapes/pen';
 import Rect from './components/shapes/rect';
 import Eraser from './components/shapes/eraser';
 import Ellipse from './components/shapes/ellipse';
