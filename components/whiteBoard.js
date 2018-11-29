@@ -22,9 +22,9 @@ export default class WhiteBoard extends React.Component {
 	componentDidMount() {
 		document.addEventListener("touchstart", this.mouseDown.bind(this));
 		document.addEventListener("mousedown", this.mouseDown.bind(this));
-		document.addEventListener("touchmove", this.mouseDown.bind(this));
+		document.addEventListener("touchmove", this.mouseMove.bind(this));
 		document.addEventListener("mousemove", this.mouseMove.bind(this));
-		document.addEventListener("touchend", this.mouseDown.bind(this));
+		document.addEventListener("touchend", this.mouseUp.bind(this));
 		document.addEventListener("mouseup", this.mouseUp.bind(this));
 		document.addEventListener("keydown", this.keyDown.bind(this));
 		window.addEventListener("resize", this.onResize.bind(this));
