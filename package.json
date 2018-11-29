@@ -2,7 +2,7 @@
   "name": "react-board",
   "version": "1.0.0",
   "description": "Whiteboard web app",
-  "main": "main.js",
+  "main": "./main.js",
   "scripts": {
     "start": "webpack-dev-server -d",
     "build": "webpack"
@@ -11,6 +11,7 @@
   "dependencies": {
     "@material-ui/core": "^3.6.0",
     "@material-ui/lab": "^3.0.0-alpha.24",
+    "file-loader": "^2.0.0",
     "immutable": "^3.8.1",
     "rc-slider": "^8.6.3",
     "react": "^15.0.1",
@@ -32,6 +33,6 @@
     "webpack": "^1.13.0"
   },
   "engines": {
-    "node": "8.9.3"
+    "node": "8.11.2"
   }
 }
