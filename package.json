@@ -2,7 +2,7 @@
   "name": "react-board",
   "version": "1.0.0",
   "description": "Whiteboard web app",
-  "main": "./main.js",
+  "main": "./index.js",
   "scripts": {
     "heroku-prebuild": "npm install --dev",
     "start": "webpack-dev-server -d --port $PORT --host 0.0.0.0",
