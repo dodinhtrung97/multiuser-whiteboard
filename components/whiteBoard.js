@@ -33,11 +33,12 @@ export default class WhiteBoard extends React.Component {
 
 		this.onResize();
 
-		socket.on('client_connected', function(data){
+		socket.on('client_connected', (data) => {
 			this._id = data.id;
 		})
 		socket.on('apply_mouse_down', function(data){
 			if (data.id != this._id) {
+				console.log(data.id)
 				this.pressed = true;
 				EventBus.emit(EventBus.START_PATH, data.pos)
 			}
