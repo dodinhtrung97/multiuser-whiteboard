@@ -4,7 +4,7 @@ const port = process.env.PORT || 3000;
 
 io.on('connection', function (client) {
   console.log("Client connected, with id: " + client.id)
-  io.emit('client_connected', {id: client.id})
+  io.to(client.id).emit('client_connected', {id: client.id})
 
   client.on('disconnect', function () {
     console.log('client' + client.id + 'disconnect...')

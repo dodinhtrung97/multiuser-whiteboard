@@ -29,12 +29,12 @@ export default class Tools extends React.Component {
 
 	componentDidMount() {
 		const toolList = this.state.tools
-		socket.on('apply_tool_change', function(data){
-			if (this.state.tools[index].id == 'ColorPicker')
+		socket.on('apply_tool_change', (data) => {
+			if (this.state.tools[data.index].id == 'ColorPicker')
 				this.state.showColorPicker = !this.state.showColorPicker
 			else this.state.showColorPicker = false
 			
-			if (this.state.tools[index].id == 'Pen')
+			if (this.state.tools[data.index].id == 'Pen')
 				this.state.showPenSizePicker = !this.state.showPenSizePicker
 			else this.state.showPenSizePicker = false
 
