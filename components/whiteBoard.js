@@ -77,27 +77,15 @@ export default class WhiteBoard extends React.Component {
 	}
 
 	mouseDown(e) {
-		if (this._insideRect(this.rect, { x: e.clientX, y: e.clientY })) {
-			this.pressed = true;
 			EventBus.emit(EventBus.START_PATH, this.mousePos(e))
-
-			socket.emit('mouse_down', {rect: this.rect, pos: this.mousePos(e)})
 		}
 	}
 
 	mouseMove(e) {
-		if (this.pressed) {
-			// console.log("FROM BOARD: " + this.mousePos(e).x + ' ' + this.mousePos(e).y)
-			EventBus.emit(EventBus.MOVE_PATH, this.mousePos(e))
-
-			socket.emit('mouse_move', {rect: this.rect, pos: this.mousePos(e)})
-		}
+		socket.emit('mouse_move', {rect: this.rect, pos: this.mousePos(e)})
 	}
 
 	mouseUp(e) {
-		this.pressed = false;
-		EventBus.emit(EventBus.END_PATH, this.mousePos(e))
-
 		socket.emit('mouse_up', {pos: this.mousePos(e)})
 	}
 
@@ -112,8 +100,6 @@ export default class WhiteBoard extends React.Component {
 	onMove(shape){
 		return move=>{
 			EventBus.emit(EventBus.MOVE, {shape, move})
-
-			socket.emit('shape_move', {shape: shape, move: move})
 		}
 	}
 
