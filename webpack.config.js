@@ -7,7 +7,8 @@ module.exports = {
 	},
 	devServer:{
 		port:4000,
-		inline: true
+		inline: true,
+		disableHostCheck: true
 	},
 	devtool: 'inline-source-map',
 	module:{
